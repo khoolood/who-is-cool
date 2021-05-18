@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+import { useState, useEffect } from 'react';
 import './App.css';
 
+const COOL_NAMES = [
+  'james', 'khouloud'
+]
+
 function App() {
+
+  const [name, setName] = useState('')
+  const [isCool, setIscool] =useState(false)
+  useEffect(()=>{setIscool(COOL_NAMES.includes(name.toLocaleLowerCase()))}, [name])
+  const handleChange = (e) => {
+    setName(e.target.value)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Who is Cool?</h1>
+      <input value={name} onChange= {handleChange}/>
+      {name && <p>{name} is {!isCool && 'not'} cool </p>}
     </div>
   );
 }
